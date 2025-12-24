@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changes Hair | Estudio de Estilo Premium</title>
+  <style>
+    :root {
+      --bg: #0b0b0f;
+      --panel: #13131a;
+      --card: #16161f;
+      --text: #f6f0e6;
+      --muted: #b9b4aa;
+      --accent: #d8b26e;
+      --accent-strong: #e6c078;
+      --shadow: 0 18px 55px rgba(0,0,0,0.35);
+      --radius: 16px;
+      --transition: 240ms ease;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input, select, textarea { font: inherit; }
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11,11,15,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+    }
+    nav ul {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      padding: 8px 10px;
+      border-radius: 12px;
+      transition: background var(--transition), color var(--transition);
+    }
+    nav a:hover, nav a:focus-visible {
+      background: rgba(216,178,110,0.12);
+      color: var(--accent);
+      outline: none;
+    }
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 40px;
+      height: 34px;
+      justify-content: center;
+      align-items: center;
+      background: none;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border var(--transition), background var(--transition);
+    }
+    .burger span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 999px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.active span:nth-child(2) { opacity: 0; }
+    .burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: radial-gradient(circle at 20% 20%, rgba(216,178,110,0.28), transparent 35%),
+                  radial-gradient(circle at 80% 10%, rgba(255,255,255,0.05), transparent 35%),
+                  linear-gradient(135deg, #0e0e14, #0c0c12 45%, #0f0f17);
+      padding: 120px 20px 110px;
+      margin: 24px 0 60px;
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(216,178,110,0.08), transparent 40%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .hero .content {
+      position: relative;
+      max-width: 720px;
+      z-index: 1;
+    }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: rgba(216,178,110,0.14);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+    .sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 26px;
+    }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--accent);
+      color: #0b0b0f;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: rgba(255,255,255,0.15);
+    }
+    .btn:hover, .btn:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(216,178,110,0.25);
+      outline: none;
+    }
+    .btn.secondary:hover, .btn.secondary:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: none;
+    }
+
+    section {
+      margin: 70px 0;
+    }
+    section h2 {
+      margin-bottom: 12px;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      letter-spacing: -0.01em;
+    }
+    .section-sub {
+      margin-bottom: 28px;
+      color: var(--muted);
+      max-width: 640px;
+    }
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .services-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 18px;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+      transition: transform var(--transition), border var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover { transform: translateY(-4px); border-color: rgba(216,178,110,0.35); box-shadow: var(--shadow); }
+    .card svg { width: 34px; height: 34px; fill: var(--accent); }
+    .card .title { font-weight: 700; margin: 12px 0 6px; }
+    .card .desc { color: var(--muted); margin: 0 0 10px; }
+    .meta { display: flex; gap: 12px; font-size: 0.95rem; color: var(--accent); align-items: center; }
+
+    .stylists-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .profile-img {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 55%),
+                  linear-gradient(135deg, rgba(216,178,110,0.4), rgba(216,178,110,0.1));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.35);
+      margin-bottom: 12px;
+    }
+    .tag {
+      display: inline-flex;
+      padding: 6px 10px;
+      background: rgba(216,178,110,0.14);
+      color: var(--accent);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .gallery-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-visual {
+      height: 180px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #1d1d27, #0d0d12);
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+    }
+    .gallery-visual::before {
+      content: "";
+      position: absolute;
+      inset: 10%;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(216,178,110,0.35), rgba(0,0,0,0));
+      opacity: 0.8;
+      transition: transform var(--transition);
+    }
+    .gallery-visual.after::before {
+      transform: translateX(40%);
+    }
+    .toggle {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+    }
+    .toggle button {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: border var(--transition), color var(--transition), transform var(--transition);
+    }
+    .toggle button:hover, .toggle button:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .reviews {
+      position: relative;
+      overflow: hidden;
+    }
+    .review {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .review.active { display: flex; }
+    .stars { color: var(--accent); letter-spacing: 2px; }
+    .carousel-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .carousel-controls button {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: var(--text);
+      cursor: pointer;
+      transition: border var(--transition), color var(--transition);
+    }
+    .carousel-controls button:hover, .carousel-controls button:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+
+    .promo-banner {
+      background: linear-gradient(145deg, rgba(216,178,110,0.12), rgba(216,178,110,0.04));
+      border: 1px solid rgba(216,178,110,0.35);
+      border-radius: 18px;
+      padding: 26px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      align-items: center;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    }
+    .promo-item { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; }
+    .promo-item strong { display: block; margin-bottom: 6px; }
+
+    .contact {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+    form {
+      display: grid;
+      gap: 14px;
+      background: var(--card);
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+    }
+    label { font-weight: 600; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      transition: border var(--transition), box-shadow var(--transition);
+    }
+    .error { border-color: #e58989 !important; }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(216,178,110,0.18); }
+    textarea { min-height: 110px; resize: vertical; }
+    .info-box {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      margin: 60px 0 30px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      color: var(--muted);
+    }
+    footer a:hover, footer a:focus-visible { color: var(--accent); outline: none; }
+
+    .whatsapp {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #1c1c24;
+      border: 1px solid rgba(216,178,110,0.4);
+      padding: 12px 14px;
+      border-radius: 999px;
+      color: var(--accent);
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      transition: transform var(--transition), background var(--transition);
+      z-index: 15;
+    }
+    .whatsapp:hover { transform: translateY(-3px); background: rgba(216,178,110,0.08); }
+
+    .separator { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); margin: 22px 0; }
+
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 600ms ease, transform 600ms ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 820px) {
+      nav ul {
+        position: absolute;
+        top: 62px;
+        right: 20px;
+        background: rgba(19,19,26,0.96);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 12px;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 200px;
+        box-shadow: var(--shadow);
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform var(--transition), opacity var(--transition);
+      }
+      nav ul.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      nav a { display: block; }
+      .burger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+  <a class="whatsapp" href="https://wa.me/525512345678" aria-label="WhatsApp Changes Hair" target="_blank" rel="noopener">
+    <span>✦</span><span>WhatsApp</span>
+  </a>
+  <header>
+    <div class="page nav">
+      <div class="logo" aria-label="Changes Hair">Changes Hair</div>
+      <button class="burger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#estilistas">Estilistas</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#reseñas">Reseñas</a></li>
+          <li><a href="#promos">Promos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero reveal" id="inicio">
+      <div class="content">
+        <div class="kicker">Atención boutique · Agenda flexible</div>
+        <h1>Tu cambio empieza aquí.</h1>
+        <p class="sub">Elevamos tu estilo con técnicas de precisión, color a medida y rituales de cuidado que respetan tu cabello. Vive una experiencia sensorial, íntima y segura.</p>
+        <div class="cta">
+          <a class="btn" href="#contacto">Reservar cita</a>
+          <a class="btn secondary" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="reveal">
+      <h2>Servicios Signature</h2>
+      <p class="section-sub">Diseñamos cada look con diagnóstico personalizado, fórmulas limpias y acabados de revista. Reserva tu transformación.</p>
+      <div class="grid services-grid">
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v2H4zm2 4h12v2H6zm-2 4h16v2H4zm2 4h6v2H6z"/></svg>
+          <div class="title">Corte de precisión</div>
+          <p class="desc">Texturas ligeras, contornos definidos y movimiento natural.</p>
+          <div class="meta"><span>desde $580</span><span>·</span><span>45 min</span></div>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c5 0 5-8 9-8s4 8 9 8-5 8-9 8-4-8-9-8z"/></svg>
+          <div class="title">Color alta costura</div>
+          <p class="desc">Diseño cromático a medida, brillo espejo y protección total.</p>
+          <div class="meta"><span>desde $1450</span><span>·</span><span>90 min</span></div>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l3 6 6 1-4.5 4.4L17 21l-5-3-5 3 1.5-6.6L4 10l6-1z"/></svg>
+          <div class="title">Balayage luminoso</div>
+          <p class="desc">Difuminado premium con transiciones suaves y luz estratégica.</p>
+          <div class="meta"><span>desde $2100</span><span>·</span><span>2.5 h</span></div>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v2H5zm0 4h14v2H5zm0 4h14v2H5zm0 4h9v2H5z"/></svg>
+          <div class="title">Tratamientos curativos</div>
+          <p class="desc">Rituales nutritivos, sellado de puntas y control de frizz.</p>
+          <div class="meta"><span>desde $720</span><span>·</span><span>60 min</span></div>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l4 8h-3v12h-2V10H8z"/></svg>
+          <div class="title">Peinado editorial</div>
+          <p class="desc">Ondas soft, sleek pony o recogidos pulidos para cualquier evento.</p>
+          <div class="meta"><span>desde $650</span><span>·</span><span>50 min</span></div>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l2 2-3 3 3 3-2 2-5-5zm10 0l5 5-5 5-2-2 3-3-3-3z"/></svg>
+          <div class="title">Barber & grooming</div>
+          <p class="desc">Fades nítidos, perfilado de barba y ritual caliente con toalla.</p>
+          <div class="meta"><span>desde $480</span><span>·</span><span>40 min</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="estilistas" class="reveal">
+      <h2>Equipo de Artistas</h2>
+      <p class="section-sub">Coloristas certificados y barberos de autor. Te acompañamos con escucha activa y asesoría honesta.</p>
+      <div class="grid stylists-grid">
+        <div class="card">
+          <div class="profile-img" aria-hidden="true"></div>
+          <div class="title">Camila León</div>
+          <p class="desc">Colorista especializada en tonos miel y cobrizos luminosos.</p>
+          <div class="meta">8 años · Hair color expert</div>
+          <span class="tag">Diagnóstico de color</span>
+        </div>
+        <div class="card">
+          <div class="profile-img" aria-hidden="true"></div>
+          <div class="title">Diego Arriaga</div>
+          <p class="desc">Barber y estilista editorial, amante de líneas limpias.</p>
+          <div class="meta">10 años · Barber / Fade master</div>
+          <span class="tag">Barber premium</span>
+        </div>
+        <div class="card">
+          <div class="profile-img" aria-hidden="true"></div>
+          <div class="title">Renata Vega</div>
+          <p class="desc">Stylist nupcial, peinados de larga duración sin rigidez.</p>
+          <div class="meta">7 años · Bridal & Waves</div>
+          <span class="tag">Novias</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria" class="reveal">
+      <h2>Galería Antes / Después</h2>
+      <p class="section-sub">Historias reales de transformación con técnicas respetuosas. Activa el toggle para descubrir el cambio.</p>
+      <div class="grid gallery-grid">
+        <div class="card gallery-card">
+          <div class="gallery-visual" data-state="antes">
+            <span>Antes</span>
+          </div>
+          <div class="toggle">
+            <span>Antes / Después</span>
+            <button type="button" aria-label="Cambiar entre antes y después" data-gallery-toggle>Ver cambio</button>
+          </div>
+        </div>
+        <div class="card gallery-card">
+          <div class="gallery-visual" data-state="antes">
+            <span>Antes</span>
+          </div>
+          <div class="toggle">
+            <span>Antes / Después</span>
+            <button type="button" aria-label="Cambiar entre antes y después" data-gallery-toggle>Ver cambio</button>
+          </div>
+        </div>
+        <div class="card gallery-card">
+          <div class="gallery-visual" data-state="antes">
+            <span>Antes</span>
+          </div>
+          <div class="toggle">
+            <span>Antes / Después</span>
+            <button type="button" aria-label="Cambiar entre antes y después" data-gallery-toggle>Ver cambio</button>
+          </div>
+        </div>
+        <div class="card gallery-card">
+          <div class="gallery-visual" data-state="antes">
+            <span>Antes</span>
+          </div>
+          <div class="toggle">
+            <span>Antes / Después</span>
+            <button type="button" aria-label="Cambiar entre antes y después" data-gallery-toggle>Ver cambio</button>
+          </div>
+        </div>
+        <div class="card gallery-card">
+          <div class="gallery-visual" data-state="antes">
+            <span>Antes</span>
+          </div>
+          <div class="toggle">
+            <span>Antes / Después</span>
+            <button type="button" aria-label="Cambiar entre antes y después" data-gallery-toggle>Ver cambio</button>
+          </div>
+        </div>
+        <div class="card gallery-card">
+          <div class="gallery-visual" data-state="antes">
+            <span>Antes</span>
+          </div>
+          <div class="toggle">
+            <span>Antes / Después</span>
+            <button type="button" aria-label="Cambiar entre antes y después" data-gallery-toggle>Ver cambio</button>
+          </div>
+        </div>
+        <div class="card gallery-card">
+          <div class="gallery-visual" data-state="antes">
+            <span>Antes</span>
+          </div>
+          <div class="toggle">
+            <span>Antes / Después</span>
+            <button type="button" aria-label="Cambiar entre antes y después" data-gallery-toggle>Ver cambio</button>
+          </div>
+        </div>
+        <div class="card gallery-card">
+          <div class="gallery-visual" data-state="antes">
+            <span>Antes</span>
+          </div>
+          <div class="toggle">
+            <span>Antes / Después</span>
+            <button type="button" aria-label="Cambiar entre antes y después" data-gallery-toggle>Ver cambio</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reseñas" class="reveal">
+      <h2>Reseñas</h2>
+      <p class="section-sub">Clientes que confían en nuestro criterio y se quedan por la experiencia.</p>
+      <div class="reviews card">
+        <div class="review active">
+          <div class="stars">★★★★★</div>
+          <p>“Diagnóstico súper claro, me explicaron cada paso y el color quedó impecable.”</p>
+          <div class="meta">Fernanda · Feb 2024</div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>“Los fades de Diego son otra liga. Detalle quirúrgico y ambiente privado.”</p>
+          <div class="meta">Luis · Ene 2024</div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★☆</div>
+          <p>“Balayage suave, sin líneas marcadas. Me duró semanas brillante.”</p>
+          <div class="meta">Mariana · Dic 2023</div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>“Me peinaron para boda civil, cero frizz y se mantuvo toda la noche.”</p>
+          <div class="meta">Andrea · Nov 2023</div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>“El ritual de tratamiento es lo máximo, sales con cuero cabelludo ligero.”</p>
+          <div class="meta">Sofía · Oct 2023</div>
+        </div>
+        <div class="carousel-controls">
+          <button type="button" id="prevReview" aria-label="Reseña anterior">←</button>
+          <button type="button" id="nextReview" aria-label="Reseña siguiente">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="promos" class="reveal">
+      <h2>Promos con acento dorado</h2>
+      <p class="section-sub">Aprovecha paquetes limitados, creados para mantener tu look en su mejor versión.</p>
+      <div class="promo-banner">
+        <div>
+          <h3>Un toque de lujo accesible</h3>
+          <p>Reserva hoy y asegura tu horario preferido. Válido lunes a jueves.</p>
+          <button class="btn" type="button" data-scroll-contacto>Quiero la promo</button>
+        </div>
+        <div class="promo-item">
+          <strong>Pack Color + Tratamiento</strong>
+          <p>Color personalizado + sellado nutritivo + styling pro.</p>
+          <div class="meta">$1950 · 2 h</div>
+        </div>
+        <div class="promo-item">
+          <strong>Corte + Barba</strong>
+          <p>Fade de precisión, perfilado de barba y toalla caliente.</p>
+          <div class="meta">$780 · 70 min</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="reveal">
+      <h2>Contacto y agenda</h2>
+      <p class="section-sub">Cuéntanos qué deseas lograr. Respondemos rápido y con recomendaciones claras.</p>
+      <div class="contact">
+        <form id="contactForm" novalidate>
+          <div>
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" required aria-required="true" placeholder="Tu nombre" />
+          </div>
+          <div>
+            <label for="telefono">Teléfono</label>
+            <input id="telefono" name="telefono" type="tel" required aria-required="true" placeholder="55 1234 5678" pattern="[0-9\s+]{8,}" />
+          </div>
+          <div>
+            <label for="servicio">Servicio</label>
+            <select id="servicio" name="servicio" required aria-required="true">
+              <option value="">Selecciona</option>
+              <option>Corte</option>
+              <option>Color</option>
+              <option>Balayage</option>
+              <option>Tratamiento</option>
+              <option>Peinado</option>
+              <option>Barber</option>
+            </select>
+          </div>
+          <div>
+            <label for="fecha">Fecha</label>
+            <input id="fecha" name="fecha" type="date" required aria-required="true" />
+          </div>
+          <div>
+            <label for="hora">Hora</label>
+            <input id="hora" name="hora" type="time" required aria-required="true" />
+          </div>
+          <div>
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos tu idea"></textarea>
+          </div>
+          <button class="btn" type="submit">Enviar</button>
+          <p id="formMsg" role="status" aria-live="polite" style="margin:0;color:var(--accent);"></p>
+        </form>
+        <div class="info-box">
+          <h3 style="margin-top:0;">Visítanos</h3>
+          <p>Av. Reforma 123, Piso 5, Cuauhtémoc, CDMX.</p>
+          <p>Horario: Lun-Sáb 9:00 - 20:00.</p>
+          <div class="separator"></div>
+          <p>Tel: <a href="tel:+525512345678">55 1234 5678</a><br>WhatsApp: <a href="https://wa.me/525512345678" target="_blank" rel="noopener">+52 55 1234 5678</a></p>
+          <p>Instagram: <a href="https://instagram.com" target="_blank" rel="noopener">@changeshair</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page">
+    <div>
+      <strong>Changes Hair</strong>
+      <p>Cabina boutique con tecnología y talento humano.</p>
+    </div>
+    <div>
+      <strong>Links rápidos</strong>
+      <p><a href="#servicios">Servicios</a><br><a href="#galeria">Galería</a><br><a href="#promos">Promos</a></p>
+    </div>
+    <div>
+      <strong>Redes</strong>
+      <p><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br><a href="https://wa.me/525512345678" target="_blank" rel="noopener">WhatsApp</a></p>
+    </div>
+    <div>© Changes Hair</div>
+  </footer>
+
+  <script>
+    const burger = document.querySelector('.burger');
+    const navList = document.querySelector('nav ul');
+    burger.addEventListener('click', () => {
+      const open = navList.classList.toggle('open');
+      burger.classList.toggle('active');
+      burger.setAttribute('aria-expanded', open);
+    });
+    navList.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navList.classList.remove('open');
+      burger.classList.remove('active');
+      burger.setAttribute('aria-expanded', false);
+    }));
+
+    const galleryCards = document.querySelectorAll('[data-gallery-toggle]');
+    galleryCards.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const visual = btn.closest('.gallery-card').querySelector('.gallery-visual');
+        const isAntes = visual.dataset.state === 'antes';
+        visual.dataset.state = isAntes ? 'despues' : 'antes';
+        visual.classList.toggle('after', isAntes);
+        visual.querySelector('span').textContent = isAntes ? 'Después' : 'Antes';
+        btn.textContent = isAntes ? 'Ver antes' : 'Ver cambio';
+      });
+    });
+
+    const reviews = Array.from(document.querySelectorAll('.review'));
+    let currentReview = 0;
+    const showReview = (index) => {
+      reviews.forEach((rev, i) => rev.classList.toggle('active', i === index));
+    };
+    document.getElementById('prevReview').addEventListener('click', () => {
+      currentReview = (currentReview - 1 + reviews.length) % reviews.length;
+      showReview(currentReview);
+    });
+    document.getElementById('nextReview').addEventListener('click', () => {
+      currentReview = (currentReview + 1) % reviews.length;
+      showReview(currentReview);
+    });
+    setInterval(() => {
+      currentReview = (currentReview + 1) % reviews.length;
+      showReview(currentReview);
+    }, 5000);
+
+    document.querySelector('[data-scroll-contacto]').addEventListener('click', () => {
+      document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const form = document.getElementById('contactForm');
+    const formMsg = document.getElementById('formMsg');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formMsg.textContent = '';
+      const requiredFields = ['nombre','telefono','servicio','fecha','hora'];
+      let valid = true;
+      requiredFields.forEach(id => {
+        const field = document.getElementById(id);
+        if (!field.value.trim()) { field.classList.add('error'); valid = false; }
+        else field.classList.remove('error');
+      });
+      const phone = document.getElementById('telefono');
+      if (phone.value && !/^[0-9\s+]{8,}$/.test(phone.value)) {
+        valid = false;
+        phone.classList.add('error');
+        formMsg.textContent = 'Ingresa un teléfono válido, por favor.';
+        return;
+      }
+      if (!valid) {
+        formMsg.textContent = 'Completa los campos marcados.';
+        return;
+      }
+      form.reset();
+      formMsg.textContent = '¡Recibido! Te contactaremos para confirmar tu cita.';
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
